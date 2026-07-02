@@ -28,7 +28,7 @@ init(autoreset=True)
 # Configuration
 CONFIG = {
     'model_path': 'ids_model.keras',
-    'scaler_path': 'scaler.pkl',
+    'scaler_path': 'scaler.npz',
     'features_path': 'training_features.json',
     'interface': None,  # Auto-detect interface
     'packet_buffer_size': 1000,
@@ -44,7 +44,7 @@ class PacketFeatureExtractor:
     def __init__(self):
         self.feature_names = [
             'packet_len', 'ip_ttl', 'ip_proto', 'src_port', 'dst_port',
-            'tcp_flags', 'payload_len', 'is_syn', 'is_ack', 'is_fin',
+            'tcp_flags_value', 'payload_len', 'is_syn', 'is_ack', 'is_fin',
             'is_rst', 'is_psh', 'is_urg', 'hour', 'minute'
         ]
 
@@ -54,11 +54,6 @@ class PacketFeatureExtractor:
 
         # Basic packet length
         features[0] = len(packet)
-
-        # Time-based features
-        now = datetime.now()
-        features[11] = now.hour
-        features[12] = now.minute
 
         if IP not in packet:
             return features
@@ -94,6 +89,11 @@ class PacketFeatureExtractor:
         # Payload length (bytes)
         if Raw in packet:
             features[6] = len(packet[Raw].load)
+
+        # Time-based features (indices 13, 14)
+        now = datetime.now()
+        features[13] = now.hour
+        features[14] = now.minute
 
         return features
 
@@ -206,6 +206,13 @@ class IntrusionDetector:
         # Store for training
         if CONFIG['training_mode']:
             self.packet_features.append(features_list)
+            # Show progress every 100 packets
+            if len(self.packet_features) % 100 == 0:
+                print(f"Training progress: {len(self.packet_features)} packets collected...")
+            # Alert when we have enough training data
+            if len(self.packet_features) >= CONFIG['packet_buffer_size']:
+                print(f"\n{Fore.GREEN}{Style.BRIGHT}✓ Collected {CONFIG['packet_buffer_size']} packets.{Style.RESET_ALL}")
+                print(f"{Fore.YELLOW}Press Ctrl+C to stop training and save the model.{Style.RESET_ALL}")
             return
 
         # Detect anomalies
