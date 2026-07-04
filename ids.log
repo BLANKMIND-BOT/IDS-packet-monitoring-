@@ -1,0 +1,55 @@
+2026-07-04 21:46:10,131 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-07-04 21:46:50,594 - ERROR - Failed to save training data
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Desktop\IDS\IDS-packet-monitoring-\main.py", line 430, in _save_training_data
+    self.model.train(features)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\lenovo\Desktop\IDS\IDS-packet-monitoring-\main.py", line 153, in train
+    self.model.fit(
+    ~~~~~~~~~~~~~~^
+        X_pca, X_pca,
+        ^^^^^^^^^^^^^
+    ...<4 lines>...
+        verbose=0
+        ^^^^^^^^^
+    )
+    ^
+  File "C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\keras\src\utils\traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\keras\src\layers\input_spec.py", line 256, in assert_input_compatibility
+    raise ValueError(
+    ...<4 lines>...
+    )
+ValueError: Input 0 with name 'input_layer' of layer 'functional' is incompatible with the layer: expected shape=(None, 15), found shape=(None, 10)
+2026-07-04 22:01:28,635 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-07-04 22:03:30,992 - ERROR - Failed to save training data
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Desktop\IDS\IDS-packet-monitoring-\main.py", line 444, in _save_training_data
+    self.model.train(features)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\lenovo\Desktop\IDS\IDS-packet-monitoring-\main.py", line 153, in train
+    self.model.fit(
+    ~~~~~~~~~~~~~~^
+        X_pca, X_pca,
+        ^^^^^^^^^^^^^
+    ...<4 lines>...
+        verbose=0
+        ^^^^^^^^^
+    )
+    ^
+  File "C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\keras\src\utils\traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\keras\src\layers\input_spec.py", line 256, in assert_input_compatibility
+    raise ValueError(
+    ...<4 lines>...
+    )
+ValueError: Input 0 with name 'input_layer' of layer 'functional' is incompatible with the layer: expected shape=(None, 15), found shape=(None, 10)
+2026-07-04 22:17:07,293 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-07-04 22:18:18,800 - INFO - Model trained and saved successfully
+2026-07-04 22:20:34,657 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-07-04 22:20:35,037 - INFO - Model loaded successfully
+2026-07-04 22:54:50,301 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-07-04 22:56:03,394 - INFO - Model and preprocessing objects saved successfully
+2026-07-04 22:56:03,395 - INFO - Model trained and saved successfully
+2026-07-04 22:56:20,305 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-07-04 22:56:20,432 - INFO - Model loaded successfully
