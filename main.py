@@ -8,6 +8,7 @@ import os
 import sys
 import time
 import json
+import logging
 import threading
 import numpy as np
 import pandas as pd
@@ -21,6 +22,18 @@ import tensorflow as tf
 from tensorflow import keras
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
+import joblib
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('ids.log'),
+        logging.StreamHandler(sys.stderr)
+    ]
+)
+logger = logging.getLogger(__name__)
 
 # Initialize colorama for colored terminal output
 init(autoreset=True)
@@ -103,9 +116,10 @@ class IDSModel:
 
     def __init__(self, input_dim: int):
         self.input_dim = input_dim
+        self.pca_dim = min(10, input_dim)  # PCA output dimension
         self.model = None
         self.scaler = StandardScaler()
-        self.pca = PCA(n_components=min(10, input_dim))
+        self.pca = PCA(n_components=self.pca_dim)
         self.threshold = CONFIG['anomaly_threshold']
         self._build_model()
 
@@ -113,20 +127,20 @@ class IDSModel:
         """Build the autoencoder model architecture."""
         tf.random.set_seed(42)
 
-        # Encoder
-        input_layer = keras.Input(shape=(self.input_dim,))
+        # Encoder - input size matches PCA output dimension
+        input_layer = keras.Input(shape=(self.pca_dim,))
         encoded = keras.layers.Dense(64, activation='relu')(input_layer)
         encoded = keras.layers.Dropout(0.2)(encoded)
         encoded = keras.layers.Dense(32, activation='relu')(encoded)
         encoded = keras.layers.Dropout(0.2)(encoded)
         encoded = keras.layers.Dense(16, activation='relu')(encoded)
 
-        # Decoder
+        # Decoder - output size matches PCA dimension (autoencoder reconstructs the PCA-transformed data)
         decoded = keras.layers.Dense(32, activation='relu')(encoded)
         decoded = keras.layers.Dropout(0.2)(decoded)
         decoded = keras.layers.Dense(64, activation='relu')(decoded)
         decoded = keras.layers.Dropout(0.2)(decoded)
-        output_layer = keras.layers.Dense(self.input_dim, activation='linear')(decoded)
+        output_layer = keras.layers.Dense(self.pca_dim, activation='linear')(decoded)
 
         self.model = keras.Model(input_layer, output_layer)
         self.model.compile(optimizer='adam', loss='mse')
@@ -166,17 +180,29 @@ class IDSModel:
     def save(self, model_path: str, scaler_path: str):
         """Save model and scaler to disk."""
         self.model.save(model_path)
-        np.savez(scaler_path, scaler_mean=self.scaler.mean_, scaler_scale=self.scaler.scale_,
-                 pca_components=self.pca.components_, pca_mean=self.pca.mean_)
+        # Save the entire fitted scaler and PCA objects with joblib
+        joblib.dump({
+            'scaler': self.scaler,
+            'pca': self.pca,
+            'pca_dim': self.pca_dim
+        }, scaler_path)
+        logger.info("Model and preprocessing objects saved successfully")
 
     def load(self, model_path: str, scaler_path: str):
         """Load model and scaler from disk."""
-        self.model = keras.models.load_model(model_path)
-        data = np.load(scaler_path, allow_pickle=True)
-        self.scaler.mean_ = data['scaler_mean']
-        self.scaler.scale_ = data['scaler_scale']
-        self.pca.components_ = data['pca_components']
-        self.pca.mean_ = data['pca_mean']
+        try:
+            self.model = keras.models.load_model(model_path)
+            data = joblib.load(scaler_path)
+            self.scaler = data['scaler']
+            self.pca = data['pca']
+            self.pca_dim = data['pca_dim']
+            logger.info("Model loaded successfully")
+        except FileNotFoundError:
+            logger.error(f"Model file not found: {model_path}")
+            raise
+        except Exception:
+            logger.exception("Failed to load model")
+            raise
 
 
 class IntrusionDetector:
@@ -372,8 +398,22 @@ class IntrusionDetector:
         else:
             # Check if model exists, train if not
             if os.path.exists(CONFIG['model_path']):
-                print(f"{Fore.GREEN}Loading existing model...{Style.RESET_ALL}")
-                self.model.load(CONFIG['model_path'], CONFIG['scaler_path'])
+                if not os.path.exists(CONFIG['scaler_path']):
+                    logger.error("Model exists but scaler file missing - deleting model")
+                    print(f"{Fore.RED}Scaler file missing, removing incomplete model...{Style.RESET_ALL}")
+                    try:
+                        os.remove(CONFIG['model_path'])
+                    except OSError as e:
+                        logger.warning(f"Could not remove incomplete model: {e}")
+                else:
+                    print(f"{Fore.GREEN}Loading existing model...{Style.RESET_ALL}")
+                    try:
+                        self.model.load(CONFIG['model_path'], CONFIG['scaler_path'])
+                    except Exception:
+                        logger.exception("Failed to load model - will retrain")
+                        os.remove(CONFIG['model_path'])
+                        os.remove(CONFIG['scaler_path'])
+                        print(f"{Fore.YELLOW}Retraining with live traffic...{Style.RESET_ALL}")
             else:
                 print(f"{Fore.YELLOW}No model found. Training on first {CONFIG['packet_buffer_size']} packets.{Style.RESET_ALL}")
                 print(f"{Fore.YELLOW}Assuming initial traffic is normal...{Style.RESET_ALL}")
@@ -393,7 +433,10 @@ class IntrusionDetector:
                 iface=CONFIG['interface']
             )
         except KeyboardInterrupt:
+            logger.info("IDS stopped by user")
             print(f"\n{Fore.YELLOW}Stopping IDS...{Style.RESET_ALL}")
+        except Exception:
+            logger.exception("Fatal error in packet capture loop")
 
         self.running = False
 
@@ -402,10 +445,15 @@ class IntrusionDetector:
 
     def _save_training_data(self):
         """Save collected training data."""
-        features = np.array(self.packet_features)
-        self.model.train(features)
-        self.model.save(CONFIG['model_path'], CONFIG['scaler_path'])
-        print(f"{Fore.GREEN}Model trained and saved!{Style.RESET_ALL}")
+        try:
+            features = np.array(self.packet_features)
+            self.model.train(features)
+            self.model.save(CONFIG['model_path'], CONFIG['scaler_path'])
+            logger.info("Model trained and saved successfully")
+            print(f"{Fore.GREEN}Model trained and saved!{Style.RESET_ALL}")
+        except Exception:
+            logger.exception("Failed to save training data")
+            print(f"{Fore.RED}Error saving model{Style.RESET_ALL}")
 
 
 def main():
