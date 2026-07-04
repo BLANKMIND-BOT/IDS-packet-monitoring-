@@ -151,6 +151,10 @@ class IDSModel:
         X_scaled = self.scaler.fit_transform(X)
         X_pca = self.pca.fit_transform(X_scaled)
 
+        # Clear stale TF context and rebuild model to avoid device scope nesting errors
+        tf.keras.backend.clear_session()
+        self._build_model()
+
         # Train autoencoder
         self.model.fit(
             X_pca, X_pca,
@@ -208,7 +212,8 @@ class IDSModel:
 class IntrusionDetector:
     """Main IDS class that coordinates packet capture and detection."""
 
-    def __init__(self):
+    def __init__(self, gui_mode=False):
+        self.gui_mode = gui_mode
         self.feature_extractor = PacketFeatureExtractor()
         self.packet_buffer = deque(maxlen=CONFIG['packet_buffer_size'])
         self.packet_features = []
@@ -420,8 +425,8 @@ class IntrusionDetector:
 
         self.running = True
 
-        # Start display thread
-        if not CONFIG['training_mode']:
+        # Start display thread (skip in GUI mode)
+        if not CONFIG['training_mode'] and not self.gui_mode:
             display_thread = threading.Thread(target=self.display_status)
             display_thread.daemon = True
             display_thread.start()
