@@ -1,0 +1,144 @@
+2026-07-04 21:46:10,131 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-07-04 21:46:50,594 - ERROR - Failed to save training data
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Desktop\IDS\IDS-packet-monitoring-\main.py", line 430, in _save_training_data
+    self.model.train(features)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\lenovo\Desktop\IDS\IDS-packet-monitoring-\main.py", line 153, in train
+    self.model.fit(
+    ~~~~~~~~~~~~~~^
+        X_pca, X_pca,
+        ^^^^^^^^^^^^^
+    ...<4 lines>...
+        verbose=0
+        ^^^^^^^^^
+    )
+    ^
+  File "C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\keras\src\utils\traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\keras\src\layers\input_spec.py", line 256, in assert_input_compatibility
+    raise ValueError(
+    ...<4 lines>...
+    )
+ValueError: Input 0 with name 'input_layer' of layer 'functional' is incompatible with the layer: expected shape=(None, 15), found shape=(None, 10)
+2026-07-04 22:01:28,635 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-07-04 22:03:30,992 - ERROR - Failed to save training data
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Desktop\IDS\IDS-packet-monitoring-\main.py", line 444, in _save_training_data
+    self.model.train(features)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\lenovo\Desktop\IDS\IDS-packet-monitoring-\main.py", line 153, in train
+    self.model.fit(
+    ~~~~~~~~~~~~~~^
+        X_pca, X_pca,
+        ^^^^^^^^^^^^^
+    ...<4 lines>...
+        verbose=0
+        ^^^^^^^^^
+    )
+    ^
+  File "C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\keras\src\utils\traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\keras\src\layers\input_spec.py", line 256, in assert_input_compatibility
+    raise ValueError(
+    ...<4 lines>...
+    )
+ValueError: Input 0 with name 'input_layer' of layer 'functional' is incompatible with the layer: expected shape=(None, 15), found shape=(None, 10)
+2026-07-04 22:17:07,293 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-07-04 22:18:18,800 - INFO - Model trained and saved successfully
+2026-07-04 22:20:34,657 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-07-04 22:20:35,037 - INFO - Model loaded successfully
+2026-07-04 22:54:50,301 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-07-04 22:56:03,394 - INFO - Model and preprocessing objects saved successfully
+2026-07-04 22:56:03,395 - INFO - Model trained and saved successfully
+2026-07-04 22:56:20,305 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-07-04 22:56:20,432 - INFO - Model loaded successfully
+2026-07-05 00:12:52,678 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-07-05 00:12:53,144 - INFO - Model loaded successfully
+2026-07-05 00:13:02,978 - ERROR - Exception in callback _HandlerDelegate.execute.<locals>.<lambda>() at C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\tornado\web.py:2509
+handle: <Handle _HandlerDelegate.execute.<locals>.<lambda>() at C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\tornado\web.py:2509>
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\tornado\web.py", line 2509, in <lambda>
+    fut.add_done_callback(lambda f: f.result())
+                                    ~~~~~~~~^^
+  File "C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\tornado\web.py", line 1807, in _execute
+    async def _execute(
+asyncio.exceptions.CancelledError
+2026-07-05 00:13:03,015 - ERROR - Exception in callback _HandlerDelegate.execute.<locals>.<lambda>() at C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\tornado\web.py:2509
+handle: <Handle _HandlerDelegate.execute.<locals>.<lambda>() at C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\tornado\web.py:2509>
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\tornado\web.py", line 2509, in <lambda>
+    fut.add_done_callback(lambda f: f.result())
+                                    ~~~~~~~~^^
+  File "C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\tornado\web.py", line 1807, in _execute
+    async def _execute(
+asyncio.exceptions.CancelledError
+2026-07-05 00:13:03,595 - WARNING - From C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+2026-07-05 00:13:18,974 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-07-05 00:13:19,325 - INFO - Model loaded successfully
+2026-07-05 00:25:32,049 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-07-05 00:25:35,061 - WARNING - From C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+2026-07-05 00:27:23,385 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-07-05 00:27:23,385 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-07-05 00:27:23,841 - INFO - Model loaded successfully
+2026-07-05 00:27:23,841 - INFO - Model loaded successfully
+2026-07-05 00:27:25,616 - WARNING - From C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+2026-07-05 00:30:04,601 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-07-05 00:32:19,056 - ERROR - Failed to save training data
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Desktop\IDS\IDS-packet-monitoring-\main.py", line 451, in _save_training_data
+    self.model.train(features)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\lenovo\Desktop\IDS\IDS-packet-monitoring-\main.py", line 155, in train
+    self.model.fit(
+    ~~~~~~~~~~~~~~^
+        X_pca, X_pca,
+        ^^^^^^^^^^^^^
+    ...<4 lines>...
+        verbose=0
+        ^^^^^^^^^
+    )
+    ^
+  File "C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\keras\src\utils\traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\tensorflow\python\eager\context.py", line 2481, in __exit__
+    raise RuntimeError("Exiting device scope without proper scope nesting")
+RuntimeError: Exiting device scope without proper scope nesting
+2026-07-05 00:33:53,127 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-07-05 00:33:53,296 - INFO - Model loaded successfully
+2026-07-05 00:34:23,628 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-07-05 00:34:23,788 - INFO - Model loaded successfully
+2026-07-05 00:34:38,930 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-07-05 00:35:37,567 - WARNING - From C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+2026-07-05 00:35:56,745 - INFO - Model and preprocessing objects saved successfully
+2026-07-05 00:35:56,745 - INFO - Model trained and saved successfully
+2026-07-05 00:36:29,226 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-07-05 00:36:29,802 - INFO - Model loaded successfully
+2026-07-05 00:36:35,179 - WARNING - From C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+2026-07-05 00:37:15,913 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-07-05 00:39:37,456 - INFO - Model loaded successfully
+2026-07-05 00:40:04,584 - WARNING - From C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+2026-07-05 00:40:37,831 - INFO - Model and preprocessing objects saved successfully
+2026-07-05 00:40:37,831 - INFO - Model trained and saved successfully
+2026-07-05 00:41:23,812 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-07-05 00:41:24,292 - INFO - Model loaded successfully
+2026-07-05 00:41:33,166 - WARNING - From C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+2026-07-05 09:14:47,721 - INFO - Model loaded successfully
+2026-07-05 09:21:09,978 - INFO - Model loaded successfully
+2026-07-06 14:06:10,723 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-07-06 14:06:11,080 - INFO - Model loaded successfully
+2026-07-06 14:06:20,906 - WARNING - From C:\Users\lenovo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
